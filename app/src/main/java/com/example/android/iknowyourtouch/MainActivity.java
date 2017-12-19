@@ -3,6 +3,7 @@ package com.example.android.iknowyourtouch;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
@@ -11,11 +12,15 @@ import com.mapzen.speakerbox.Speakerbox;
 
 import es.dmoral.toasty.Toasty;
 
-public class MainActivity extends Activity implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
+import static es.dmoral.toasty.Toasty.info;
+
+public class MainActivity extends AppCompatActivity implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
 
     //create a gesture detector
     GestureDetectorCompat gestureDetectorCompat;
     Speakerbox speakerbox;
+    Toast toast;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +48,14 @@ public class MainActivity extends Activity implements GestureDetector.OnDoubleTa
 
     @Override
     public boolean onDoubleTap(MotionEvent motionEvent) {
+        Toasty.info(this, "You double tapped me!", Toast.LENGTH_SHORT,true).show();
+        speakerbox.play("You double tapped me");
         return false;
     }
 
     @Override
     public boolean onDoubleTapEvent(MotionEvent motionEvent) {
-        Toasty.info(this, "You double tapped me!", Toast.LENGTH_SHORT,true).show();
-        speakerbox.play("You double tapped me");
-        return true;
+        return false;
     }
 
     @Override
