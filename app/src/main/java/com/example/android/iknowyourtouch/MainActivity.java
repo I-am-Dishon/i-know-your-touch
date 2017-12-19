@@ -7,12 +7,15 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import com.mapzen.speakerbox.Speakerbox;
+
 import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends Activity implements GestureDetector.OnDoubleTapListener, GestureDetector.OnGestureListener {
 
     //create a gesture detector
     GestureDetectorCompat gestureDetectorCompat;
+    Speakerbox speakerbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,8 @@ public class MainActivity extends Activity implements GestureDetector.OnDoubleTa
         gestureDetectorCompat = new GestureDetectorCompat(this,this);
         // Set the gesture detector as the double tap listener
         gestureDetectorCompat.setOnDoubleTapListener(this);
+
+        speakerbox = new Speakerbox(getApplication());
     }
 
     @Override
@@ -44,6 +49,7 @@ public class MainActivity extends Activity implements GestureDetector.OnDoubleTa
     @Override
     public boolean onDoubleTapEvent(MotionEvent motionEvent) {
         Toasty.info(this, "You double tapped me!", Toast.LENGTH_SHORT,true).show();
+        speakerbox.play("You double tapped me");
         return true;
     }
 
@@ -70,6 +76,7 @@ public class MainActivity extends Activity implements GestureDetector.OnDoubleTa
     @Override
     public void onLongPress(MotionEvent motionEvent) {
         Toasty.info(this, "You long pressed me!", Toast.LENGTH_SHORT,true).show();
+        speakerbox.play("You long pressed me");
     }
 
     @Override
